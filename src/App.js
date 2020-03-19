@@ -1,24 +1,19 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Door from './Door'
+import {useAnimatedScale, useDimension} from './hooks'
 
 function App() {
+  const {scale, start} = useAnimatedScale(0.02, 30)
+  const {w, h, resize, disableResizing} = useDimension()
+  useEffect(() => {
+      resize()
+      return () => disableResizing()
+  })
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Door w = {w} h = {h} scale = {scale} onClick = {start}/>
     </div>
   );
 }

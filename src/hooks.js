@@ -3,19 +3,22 @@ import {useState} from 'react'
 export const useAnimatedScale = (scGap, delay) => {
     const [scale, setScale] = useState(0)
     const [animated, setAnimated] = useState(false)
+    const [dir, setDir] = useState(1)
     return {
         scale,
         start() {
             if (!animated) {
                 var currScale = scale
+
                 setAnimated(true)
                 const interval = setInterval(() => {
-                    currScale += scGap
+                    currScale += scGap * dir
                     setScale(currScale)
-                    if (currScale > 1) {
-                        setScale(0)
+                    if (Math.abs(scale - currScale) > 1) {
+                        setScale(scale + dir)
                         setAnimated(false)
                         clearInterval(interval)
+                        setDir(dir * -1)
                     }
                 })
             }

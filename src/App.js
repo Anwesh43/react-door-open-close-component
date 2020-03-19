@@ -5,7 +5,7 @@ import Door from './Door'
 import {useAnimatedScale, useDimension} from './hooks'
 
 function App() {
-  const {scale, start} = useAnimatedScale(0.02, 30)
+  const {scale, start} = useAnimatedScale(0.01, 50)
   const {w, h, resize, disableResizing} = useDimension()
   useEffect(() => {
       resize()
